@@ -7,11 +7,11 @@ import babelify from 'babelify';
 import buffer from 'vinyl-buffer';
 import source from 'vinyl-source-stream';
 import config from './config.js';
-const browerSyncServer = browserSync.create();
+const browserSyncServer = browserSync.create();
 
 
 // bundle together js files into a single main.js file
-gulp.task('bundle', ['eslint'], ()=>{
+gulp.task('bundle-js', ['eslint'], ()=>{
   const bundler = browserify(config.js.app);
 
   bundler.transform(babelify);
@@ -21,7 +21,7 @@ gulp.task('bundle', ['eslint'], ()=>{
     })
     .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest(config.publicPath + 'js/'));
 });
 
 
@@ -38,15 +38,23 @@ gulp.task('build-css', ()=>{
   return gulp.src(config.scss.src)
     .pipe(sass()
     .on('error', sass.logError))
-    .pipe(gulp.dest('build/css'));
+    .pipe(gulp.dest(config.publicPath + 'css/'))
+    .pipe(browserSyncServer.stream());
 });
 
 gulp.task('serve', ()=>{
-  browerSyncServer.init({
+  browserSyncServer.init({
     server: {
-      baseDir: 'public'
+      baseDir: config.publicPath
     }
   });
+});
+
+gulp.task('build', ()=>{
+  //lint js
+  //compile sass
+  //compress css
+  //build js
 });
 
 
@@ -54,9 +62,9 @@ gulp.task('serve', ()=>{
 // compile sass assets when any scss files are updated
 // refresh the browswer whenever a relevant file changes
 gulp.task('watch', ()=>{
-  gulp.watch(config.js.src, ['bundle']);
+  gulp.watch(config.js.src, ['bundle-js'], browserSyncServer.reload);
   gulp.watch(config.scss.src, ['build-css']);
-  gulp.watch('public/**').on('change', browserSync.reload);
+  gulp.watch(config.publicPath + '*').on('change', browserSyncServer.reload);
 });
 
-gulp.task('default', ['build-css', 'bundle', 'serve', 'watch']);
+gulp.task('default', ['build-css', 'bundle-js', 'serve', 'watch']);

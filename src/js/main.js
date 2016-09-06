@@ -1,3 +1,7 @@
 import config from '../../config.js';
 
-console.log('there I went');
+function doStuff(){
+  console.log('here I am');
+}
+
+doStuff();

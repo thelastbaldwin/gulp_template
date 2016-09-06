@@ -4,6 +4,11 @@ const config = {
   },
   'scss' : {
     'src' : './src/scss/*.scss'
+  },
+  'publicPath' : './public/',
+  'build' : {
+    'js': './build/js',
+    'css': './build/css'
   }
 }
 
