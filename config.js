@@ -1,6 +1,7 @@
 const config = {
   'js': {
-    'src' : './src/js/*.js'
+    'src' : './src/js/*.js',
+    'app' : './src/js/main.js'
   },
   'scss' : {
     'src' : './src/scss/*.scss'

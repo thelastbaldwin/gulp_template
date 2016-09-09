@@ -12,6 +12,7 @@
         "no-extra-parens": 2,
         "no-extra-semi": 2,
         "no-unreachable": 2,
+        "no-use-before-define": 2,
         "valid-jsdoc": [ 2, { "requireReturn": false } ],
         "brace-style": [ 2, "1tbs" ],
         "curly": 2,
@@ -24,7 +25,10 @@
         "prefer-const": 2
     },
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures" : {
+            "jsx" : true
+        }
     },
     "globals": {
         "$": true,

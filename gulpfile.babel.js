@@ -14,7 +14,9 @@ const browserSyncServer = browserSync.create();
 gulp.task('bundle-js', ['eslint'], ()=>{
   const bundler = browserify(config.js.app);
 
-  bundler.transform(babelify);
+  bundler.transform('babelify',
+    { presets: [ 'es2015', 'react' ]
+  });
   bundler.bundle()
     .on('error', (err)=>{
       console.log(err);

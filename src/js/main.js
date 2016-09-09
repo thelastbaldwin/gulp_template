@@ -1,7 +1,3 @@
-import config from '../../config.js';
+import util from './util';
 
-function doStuff(){
-  console.log('here I am');
-}
-
-doStuff();
+util('Steve');
