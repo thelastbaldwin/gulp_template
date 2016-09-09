@@ -15,15 +15,19 @@ gulp.task('bundle-js', ['eslint'], ()=>{
   const bundler = browserify(config.js.app);
 
   bundler.transform('babelify',
-    { presets: [ 'es2015', 'react' ]
-  });
+    {
+      presets: [ 'es2015', 'react' ],
+      sourceMaps: true
+    }
+  );
   bundler.bundle()
     .on('error', (err)=>{
       console.log(err);
     })
     .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(gulp.dest(config.publicPath + 'js/'));
+    .pipe(gulp.dest(config.publicPath + 'js/'))
+    .pipe(browserSyncServer.stream());
 });
 
 
@@ -52,21 +56,16 @@ gulp.task('serve', ()=>{
   });
 });
 
-gulp.task('build', ()=>{
-  //lint js
-  //compile sass
-  //compress css
-  //build js
-});
+gulp.task('build', ['build-css', 'bundle-js']);
 
 
 // run jshint whenever a js file is updated
 // compile sass assets when any scss files are updated
 // refresh the browswer whenever a relevant file changes
-gulp.task('watch', ()=>{
-  gulp.watch(config.js.src, ['bundle-js'], browserSyncServer.reload);
+gulp.task('watch', ['serve'], ()=>{
+  gulp.watch(config.js.src, ['bundle-js']);
   gulp.watch(config.scss.src, ['build-css']);
   gulp.watch(config.publicPath + '*').on('change', browserSyncServer.reload);
 });
 
-gulp.task('default', ['build-css', 'bundle-js', 'serve', 'watch']);
+gulp.task('default', ['build-css', 'bundle-js', 'watch']);

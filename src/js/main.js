@@ -1,3 +1,3 @@
 import util from './util';
 
-util('Steve');
+util('Steve!');
