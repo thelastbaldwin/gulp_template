@@ -1,3 +1,3 @@
 import util from './util';
 
-util('Steve!');
+document.getElementsByTagName('h1')[0].innerHTML = util('World!');

@@ -1,7 +1,10 @@
-const config = {
+const ENTRYPOINT = 'main.js';
+
+const CONFIG = {
   'js': {
     'src' : './src/js/*.js',
-    'app' : './src/js/main.js'
+    'fullAppPath' : './src/js/' + ENTRYPOINT,
+    'appName' : ENTRYPOINT
   },
   'scss' : {
     'src' : './src/scss/*.scss'
@@ -13,4 +16,4 @@ const config = {
   }
 }
 
-export default config
+export default CONFIG

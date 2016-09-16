@@ -6,7 +6,15 @@ Setup:
 
 * clone this repository and run `npm install`
 
+To start the development server:
+
+* navigate to the gulp_template folder and run 'gulp' or 'npm run start'
+
+To run the build process:
+
+* navigate to the gulp_template folder and run 'npm run build'
+
 Features to add:
 
-* separate build process with minification for CSS
-* ability to output separate JS files if needed
+* create build process (minification, uglification)
+* add ability to create multiple js packages

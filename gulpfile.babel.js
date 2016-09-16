@@ -12,7 +12,7 @@ const browserSyncServer = browserSync.create();
 
 // bundle together js files into a single main.js file
 gulp.task('bundle-js', ['eslint'], ()=>{
-  const bundler = browserify(config.js.app);
+  const bundler = browserify(config.js.fullAppPath);
 
   bundler.transform('babelify',
     {
@@ -24,7 +24,7 @@ gulp.task('bundle-js', ['eslint'], ()=>{
     .on('error', (err)=>{
       console.log(err);
     })
-    .pipe(source('main.js'))
+    .pipe(source(config.js.appName))
     .pipe(buffer())
     .pipe(gulp.dest(config.publicPath + 'js/'))
     .pipe(browserSyncServer.stream());
